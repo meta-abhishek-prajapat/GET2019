@@ -119,19 +119,56 @@ public class SparseMatrix {
 	 * @param mat2 second matrix
 	 * @return addition of first and second matrix
 	 */
-	public Integer[][] AddMatrix(Integer[][] mat1,Integer[][] mat2){
-		Integer loop=0;
-		Integer addition[][] = new Integer [mat1.length][mat1[0].length];
-		for(int row=0;row<mat1.length;row++){
-				if(mat1[row][ROW]==mat2[row][ROW] && mat1[row][COL]==mat2[row][COL]){
-					addition[loop][0]=mat1[row][ROW];
-					addition[loop][1]=mat1[row][COL];
-					addition[loop][2]=mat1[row][VAL]+mat2[row][VAL];
-					loop++;
+	public Integer[][] AddMatrix(Integer[][] mat1,Integer[][] mat2)throws Exception{
+		List<Integer[]> lst1=new ArrayList<Integer[]>();
+		lst1=Arrays.asList(mat1);
+		List<Integer[]> lst2=new ArrayList<Integer[]>();
+		lst2=Arrays.asList(mat2);
+		List<Integer[]> additionList=new ArrayList<Integer[]>();
+		Integer flag=0;
+		for(Integer firstmat[]:lst1){
+			flag=0;
+			for(Integer secondmat[]:lst2){
+				if(firstmat[ROW]==secondmat[ROW] && firstmat[COL]==secondmat[COL]){
+					additionList.add(new Integer[]{firstmat[ROW],firstmat[COL],firstmat[VAL]+secondmat[VAL]});
+					flag=1;
+					break;
+				}
+			}
+			if(flag==0){
+				additionList.add(new Integer[]{firstmat[ROW],firstmat[COL],firstmat[VAL]});
 			}
 		}
-		return addition;
-		
+		for(Integer secondmat[]:lst2){
+			flag=0;
+			for(Integer firstmat[]:lst1){
+				if(firstmat[ROW]==secondmat[ROW] && firstmat[COL]==secondmat[COL]){
+					flag=1;
+					break;
+				}
+			}
+			if(flag==0){
+				additionList.add(new Integer[]{secondmat[ROW],secondmat[COL],secondmat[VAL]});
+			}			
+		}
+		Integer result[][]=new Integer[additionList.size()][3];
+		int loop=0;
+		for(Integer obj[]:additionList){
+			result[loop][ROW]=obj[ROW];
+			result[loop][COL]=obj[COL];
+			result[loop][VAL]=obj[VAL];
+			loop++;
+		}
+		System.out.println("before sort");
+		for(int row=0;row<result.length;row++){
+			   System.out.println();
+			   for(int col=0;col<3;col++){
+				   System.out.print(result[row][col]+" ");
+			   }
+		   }
+		System.out.println();
+		sortbyColumn(result);
+		return result;		
 	}
 	
 	/**
