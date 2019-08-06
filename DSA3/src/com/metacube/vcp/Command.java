@@ -13,7 +13,9 @@ public class Command {
 		super();
 		this.currentFolder = new Folder("R");
 	}
-	
+	/**
+	 * Run Virtual Command
+	 */
 	public void commandPrompt(){
 		String commands;
 		Scanner input = new Scanner(System.in);
@@ -65,7 +67,9 @@ public class Command {
 		
 	}
 	
-	
+	/**
+	 * Show the current path 
+	 */
 	private void showPath(){
 		System.out.print("R:");
 		for(String folderName : this.folders) {
@@ -74,6 +78,11 @@ public class Command {
 		System.out.print(">");	
 	}
 	
+	/**
+	 * Command to make directory
+	 * @param folderName name of directory
+	 * @return true if created successfully else return false
+	 */
 	private boolean mkdir(String folderName){
 		if(findfolder(folderName)){
 			Folder newFolder = new Folder(folderName);
@@ -86,6 +95,11 @@ public class Command {
 			return false;
 	}
 	
+	/**
+	 * Find the directory
+	 * @param folderName name of folder
+	 * @return true if found else false
+	 */
 	private boolean findfolder(String folderName){
 		List<Folder> subFolders = this.currentFolder.getSubfolder();
 		for(Folder currentFolders : subFolders){
@@ -94,7 +108,11 @@ public class Command {
 		}
 		return true;
 	}
-	
+	/**
+	 * Change Directory Command
+	 * @param folderName move to this directory
+	 * @return true if success else false
+	 */
 	private boolean cd(String folderName){
 		if(!findfolder(folderName)){
 			List<Folder> subFolders = this.currentFolder.getSubfolder();
@@ -108,7 +126,10 @@ public class Command {
 		}
 		return false;
 	}
-	
+	/**
+	 * Go back to parent directory
+	 * @return true
+	 */
 	private boolean bk(){
 		Folder parent = this.currentFolder.getParent();
 		if(parent == null)
@@ -117,7 +138,10 @@ public class Command {
 		this.folders.remove(this.folders.size()-1);
 		return true;
 	}
-	
+	/**
+	 * List of all files and directory inside the directory
+	 * @return true
+	 */
 	private boolean ls(){
 		List<Folder> subFolders = this.currentFolder.getSubfolder();
 		for(Folder folder : subFolders){
@@ -125,7 +149,10 @@ public class Command {
 		}
 		return true;
 	}
-	
+	/**
+	 * print detail of every folder
+	 * @param folder
+	 */
 	private void showFolderDetail(Folder folder){
 		System.out.println(folder.getFolderName() + "  " + folder.getDatetime());		
 	}
@@ -133,6 +160,12 @@ public class Command {
 	private String find(String folderName){
 		return search(this.currentFolder,folderName);
 	}
+	/**
+	 * Search the folder in virtual system
+	 * @param folder 
+	 * @param folderName
+	 * @return path if found.
+	 */
 	private String search(Folder folder,String folderName){
 		if(folder.getFolderName().equals(folderName))
 			return folderName;
@@ -150,6 +183,11 @@ public class Command {
 	public void tree(){
 		showTree(this.currentFolder,0);
 	}
+	/**
+	 * Show the tree view of directory
+	 * @param folder
+	 * @param nesting
+	 */
 	private void showTree(Folder folder, Integer nesting){
 		
 		 for (Folder subDirectory : folder.getSubfolder()) {
