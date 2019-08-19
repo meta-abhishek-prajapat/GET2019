@@ -151,6 +151,9 @@ select * from category;
 select * from product;
 select * from stock;
 select * from item_list;
+select * from orders;
+select * from user;
+select * from role;
 insert into stock values(1,34),(2,55),(3,67),(4,32);
 show tables;
 desc item_list;
@@ -180,19 +183,23 @@ select * from orders ORDER BY date_of_order_placed LIMIT 50;
 
 select * from orders ORDER BY amount LIMIT 10;
 
-LOAD DATA LOCAL INFILE  "C:/Users/Home/Documents/orders_list.txt" INTO TABLE ORDERS;
+insert into orders values(1,'2019-08-02',2500,1,1);
+insert into orders values(2,'2019-07-25',1600,2,2);
+insert into orders values(3,'2019-08-06',1900,3,3);
+
 SELECT DAY(date_of_order_placed)  from orders where id=2;
 
 SELECT o.id, o.date_of_order_placed, o.user_id, o.amount from orders AS o, item_list AS i where DATEDIFF(CURDATE(), o.date_of_order_placed) > 10 AND 
 o.id=i.order_number AND i.status!='Shipped';
 
-SELECT  u9.id, u.name, o.amount, o.date_of_order_placed, o.id
+select u.name from user u,role r where u.id=r.user_id and u.id NOT In(select user_id from orders where date_of_order_placed > CURDATE()-30);
+
+SELECT  u.id, u.name, o.amount, o.date_of_order_placed, o.id
  from user as u, orders as o 
 where u.id=o.user_id AND DATEDIFF(CURDATE(), o.date_of_order_placed) <=15;
 
-SELECT i.id, p.name 
-from item_list AS i, product AS p 
-where i.order_number=1 AND i.product_id=p.id;
+select i.id,i.order_number,i.status,o.date_of_order_placed
+from item_list i,orders o where o.id=i.order_number and i.status='Shipped'; 
 
 SELECT p.name, p.price, o.date_of_order_placed
 from orders as o, product as p, item_list as i
