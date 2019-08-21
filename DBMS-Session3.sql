@@ -70,7 +70,7 @@ where p.id=pc.product_id AND c.id=pc.category_id AND c.category_name='shirt';
 #Display top 10 Items which were cancelled most.
 SELECT p.id, p.name, COUNT(p.id) AS Number_Of_cancellation
 from product p join item_list i 
-where p.id=i.product_id 
+where p.id=i.product_id and i.status='Cancelled' 
 GROUP BY i.product_id
 ORDER BY Count(p.id) DESC LIMIT 10;
 
