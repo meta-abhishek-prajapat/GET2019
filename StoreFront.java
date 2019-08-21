@@ -124,7 +124,7 @@ public class StoreFront {
      * sorted alphabetically and the count of their child categories.
      */
     public void showCategories(){
-        String query="Select c.category_name, Counts.ChildCount From  category c Inner Join (Select Parent.id,Count(Child.Parent_id) As ChildCount From   category As Parent Left Join category As Child On Parent.id = Child.Parent_Id Group by Parent.id) As Counts On c.id = Counts.id";
+        String query="select p.category_name,count(c.parent_id) from category p left join category c on p.id = c.parent_id group by p.id";
         try {
             
             Connection conn = getConnection();
