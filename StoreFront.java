@@ -36,7 +36,7 @@ public class StoreFront {
      * @param userId
      */
     public void fetchOrders(int userId) {
-        String query = "select o.id,o.date_of_order_placed,o.amount from orders o join item_list i on o.id=i.order_number where  o.user_id=? and i.status = 'CANCELLED'";
+        String query = "select o.id,o.date_of_order_placed,o.amount from orders o join item_list i on o.id=i.order_number where  o.user_id=? and i.status = 'SHIPPED'";
         try {
             Connection conn = getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
