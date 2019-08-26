@@ -31,7 +31,7 @@ BEGIN
  
  SELECT max.max_month  into month FROM(
  SELECT COUNT(date_of_order_placed) AS COUNT, MONTH(date_of_order_placed) AS max_month 
- FROM orders where EXTRACT(YEAR from date_of_order_placed)=2018
+ FROM orders where EXTRACT(YEAR from date_of_order_placed)=year
  GROUP BY MONTH(date_of_order_placed))max
  ORDER BY max.count DESC LIMIT 1;
  
@@ -48,7 +48,7 @@ create procedure get_average_sale(year INT,month INT)
 
 BEGIN
 
-SELECT  p.name,  sum(i.quantity_ordered) AS Quantity
+SELECT  p.name,  sum(i.quantity) AS Quantity
 from item_list i,product p, orders o
 where i.order_number=o.id AND i.product_id=p.id AND month(o.date_of_order_placed)=month AND year(o.date_of_order_placed)=year
 GROUP BY i.product_id;
@@ -68,13 +68,13 @@ BEGIN
 
 if start_date < end_date then
 
-SELECT p.name, i.quantity_ordered, i.status
+SELECT p.name, i.quantity, i.status
 from orders o join item_list i join product p
 where o.id=i.order_number AND i.product_id=p.id AND o.date_of_order_placed between start_date AND end_date;
 
 else
 
-SELECT p.name, i.quantity_ordered, i.status
+SELECT p.name, i.quantity, i.status
 from orders o join item_list i join product p
 where o.id=i.order_number AND i.product_id=p.id AND o.date_of_order_placed between DATE_FORMAT(end_date ,'%Y-%m-01') AND end_date;
 
