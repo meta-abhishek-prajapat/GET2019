@@ -3,27 +3,27 @@
 <head>
 <script>
 function checkValidation(form){
-	password1=form.password.value;
-	password2=form.cpassword.value;
-	if(password1 != password2){
+	password=form.password.value;
+	confirm_password=form.cpassword.value;
+	if(password != confirm_password){
 		alert("\nPassword did not match: Please try again..")
 		return false;
 	}
 	else{
-		    var y = document.getElementById("empDetail");
-		    y.style.display = "none";	
-		    var x = document.getElementById("addVehicle");
-	        x.style.display="block";
+		    var empdetail = document.getElementById("empDetail");
+		    empdetail.style.display = "none";	
+		    var addvehicle = document.getElementById("addVehicle");
+	        addvehicle.style.display="block";
 			return false;
 	}
 
 }
 
 function showPassPrice(form){
-    var x = document.getElementById("addVehicle");
-	    x.style.display="none";
-    var y = document.getElementById("showPass");
-	    y.style.display = "block";	
+    var addvehicle = document.getElementById("addVehicle");
+	    addvehicle.style.display="none";
+    var showpass = document.getElementById("showPass");
+	    showpass.style.display = "block";	
     type=form.vehicleType.value;
     document.getElementById('selectedVehicle').innerHTML = type;
     if(type == "CYCLE"){
@@ -52,20 +52,20 @@ function generatepass(form){
     document.getElementById("price").innerHTML=form.passes.value;
     document.getElementById("name").innerHTML=document.getElementById('empName').value;
     document.getElementById('vno').innerHTML=document.getElementById('vehicleNumber').value;
-    var x = document.getElementById("showPass");
-	x.style.display="none";
-    var z = document.getElementById("generatePass");
-    z.style.display="block";
+    var showpass = document.getElementById("showPass");
+	showpass.style.display="none";
+    var generatePass  = document.getElementById("generatePass");
+    generatePass.style.display="block";
     return false;
 }
 
 function parkingSystem() {
-    var x = document.getElementById("addVehicle");
-	x.style.display="none";
-    var y = document.getElementById("showPass");
-    y.style.display="none";
-    var z = document.getElementById("generatePass");
-    z.style.display="none";
+    var addvehicle = document.getElementById("addVehicle");
+	addvehicle.style.display="none";
+    var showpass = document.getElementById("showPass");
+    showpass.style.display="none";
+    var generatePass = document.getElementById("generatePass");
+    generatePass.style.display="none";
 }
 </script>
 
