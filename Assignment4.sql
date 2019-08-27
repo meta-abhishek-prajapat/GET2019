@@ -55,7 +55,7 @@ GROUP BY i.product_id;
 
 END $@
 
-call get_average_sale(2018,04);
+call get_average_sale(2019,08);
 
 #Create a stored procedure to retrieve table having order detail with status for a given period.
 #Start date and end date will be input parameter.
@@ -66,20 +66,9 @@ create procedure get_order_status_of_certain_period(start_date DATE, end_date DA
 
 BEGIN
 
-if start_date < end_date then
-
 SELECT p.name, i.quantity, i.status
 from orders o join item_list i join product p
 where o.id=i.order_number AND i.product_id=p.id AND o.date_of_order_placed between start_date AND end_date;
-
-else
-
-SELECT p.name, i.quantity, i.status
-from orders o join item_list i join product p
-where o.id=i.order_number AND i.product_id=p.id AND o.date_of_order_placed between DATE_FORMAT(end_date ,'%Y-%m-01') AND end_date;
-
-end if;
-
 end $&
 
-call get_order_status_of_certain_period("2018-01-10","2018-08-02");
+call get_order_status_of_certain_period("2019-01-10","2019-09-30");
