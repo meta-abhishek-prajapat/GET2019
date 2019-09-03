@@ -30,15 +30,18 @@ public class Search extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String column = request.getParameter("column");
-		String value = request.getParameter("value");
-		String order = request.getParameter("ordered");
+		
+		String submit = request.getParameter("search");
 		String query = "";
-		if(order.equals("class") || order.equals("age")){
-			query = "select * from studentdetail where "+column+"='"+value+"' order by "+order;
+		if(submit.equals("Search By Name")){
+			
+			String column = request.getParameter("column");
+			String value = request.getParameter("value");
+			query = "select * from studentdetail where "+column+"='"+value+"'";
+		}else{
+			String by_class = request.getParameter("class");
+			query = "select * from studentdetail where class="+by_class+" order by firstname";
 		}
-		else
-		 query = "select * from studentdetail where "+column+"='"+value+"'";
 		Database db = Database.getInstances();
 		try {
 			ResultSet rs = db.getData(query);
