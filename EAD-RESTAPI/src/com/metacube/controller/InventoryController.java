@@ -3,13 +3,13 @@ package com.metacube.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -24,9 +24,10 @@ import com.metacube.utils.Response;
 @Path("/inventory")
 public class InventoryController {
 	
+
 	InventoryFacade inventory = new InventoryFacade();
 	
-	@Path("/")
+	@Path("/getall")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAllInventory() throws Exception{
@@ -34,7 +35,7 @@ public class InventoryController {
 		return gson.toJson(inventory.getAllInventory());
 	}
 	
-	@Path("/{name}")
+	@Path("/getone/{name}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getInventory(@javax.ws.rs.PathParam("name") String name) throws Exception{
@@ -42,11 +43,12 @@ public class InventoryController {
 		return gson.toJson(inventory.getInventoryByName(name));
 	}
 	
-	@Path("/")
+	@Path("/updateall")
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateAll(String json) throws Exception{
+	public String updateAll(String json) throws Exception{
+		Gson gson = new Gson();
 		ObjectMapper mapper = new ObjectMapper();
 		List<Inventory> inventory_list = Arrays.asList(mapper.readValue(json, Inventory[].class));
 		Response response = new Response();
@@ -56,20 +58,20 @@ public class InventoryController {
 				response.setCode(405);
 				response.setMessage("Not Updated");
 				response.setStatus(false);
-				return response;
+				return gson.toJson(response);
 			}
 		}
 		response.setCode(200);
 		response.setMessage("UPDATED");
 		response.setStatus(true);
-		return response;
+		return gson.toJson(response);
 	}
 	
-	@Path("/{itemname}")
+	@Path("/update/{itemname}")
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response replace(@PathParam("itemname") String itemname,String json) throws Exception{
+	public String replace(@PathParam("itemname") String itemname,String json) throws Exception{
 		Gson gson = new Gson();
 		Inventory inventory_obj = gson.fromJson(json, Inventory.class);
 		Response response = new Response();
@@ -77,19 +79,20 @@ public class InventoryController {
 			response.setCode(200);
 			response.setMessage("UPDATED");
 			response.setStatus(true);
-			return response;
+			return gson.toJson(response);
 		}
 		response.setCode(405);
 		response.setMessage("NOT FOUND");
 		response.setStatus(false);
-		return response;
+		
+		return gson.toJson(response);
 	}
 	
-	@Path("/")
+	@Path("/insert")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response insert(String json)throws Exception{
+	public String insert(String json)throws Exception{
 		Gson gson = new Gson();
 		Inventory inventory_obj = gson.fromJson(json, Inventory.class);
 		Response response = new Response();
@@ -97,47 +100,50 @@ public class InventoryController {
 			response.setCode(200);
 			response.setMessage("Inserted");
 			response.setStatus(true);
-			return response;
+			return gson.toJson(response);
 		}
 		response.setCode(405);
 		response.setMessage("NOT FOUND");
 		response.setStatus(false);
-		return response;
+		return gson.toJson(response);
 	}
 	
-	@Path("/")
+	@Path("/deleteall")
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response deleteallInventory() throws Exception{
+	public String deleteallInventory() throws Exception{
+		Gson gson = new Gson();
 		Response response = new Response();
 		if(inventory.deleteall()==Status.DELETED){
 			response.setCode(200);
 			response.setMessage("DELETED");
 			response.setStatus(true);
-			return response;
+			return gson.toJson(response);
 		}
 		response.setCode(405);
 		response.setMessage("NOT FOUND");
 		response.setStatus(false);
-		return response;
+		return gson.toJson(response);
 	}
 	
-	@Path("/{name}")
+	@Path("/delete/{name}")
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response deleteInventory(@javax.ws.rs.PathParam("name") String name) throws Exception{
+	public String deleteInventory(@javax.ws.rs.PathParam("name") String name) throws Exception{
+		Gson gson = new Gson();
 		Response response = new Response();
 		if(inventory.deleteInventory(name)==Status.DELETED){
 			response.setCode(200);
 			response.setMessage("DELETED");
 			response.setStatus(true);
-			return response;
+			return gson.toJson(response);
 		}
 		response.setCode(405);
 		response.setMessage("NOT FOUND");
 		response.setStatus(false);
-		return response;
+		return gson.toJson(response);
 	}
 }
+
