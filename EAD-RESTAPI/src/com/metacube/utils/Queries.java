@@ -12,7 +12,7 @@ public class Queries {
 	
 	public final static String DELETEINVENTORY = "DELETE FROM INVENTORY WHERE NAME=?";
 	
-	public final static String REPLACEINVENTORY = "UPDATE INVENTORY SET NAME=? AND QUANTITY=? WHERE NAME=?";
+	public final static String REPLACEINVENTORY = "UPDATE INVENTORY QUANTITY=? WHERE NAME=?";
 	
 	public final static String DELETEALL = "DELETE FROM INVENTORY;";
 }
