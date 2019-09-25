@@ -1,0 +1,67 @@
+/* Style for Collapsible Buttons */
+.collapsible {
+    background-color: aqua;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+/* Style for body background color */
+body
+{
+    background: #DAD0D3;
+}
+
+/* Style for Collapsible Buttons when they are hovered by mouse */
+.active,
+.collapsible:hover {
+    background-color: #555;
+}
+
+/* Style for Collapsible Buttons when the buttons are not active*/
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+/* Style for Collapsible Buttons when buttons are active */
+.active:after {
+    content: "\2212";
+}
+
+/* Style for content under collapsible buttons */
+.content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+
+/* Style for price plan divs */
+.price_plan
+{
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+/* Style for price plans */
+.price_display
+{
+    border: 1px solid blue;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    padding: 20px 5px 0px 5px;
+}
