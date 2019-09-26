@@ -1,34 +1,18 @@
 package com.metacube.EADSession13Assignment.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class StudentModel {
 
-@Entity
-@Table(name="Student")
-public class Student {
-
-	@Id
-	@Column(name="id")
 	int id;
-	@Column(name="firstName")
 	String firstName;
-	@Column(name="lastName")
 	String lastName;
-	@Column(name="fatherName")
 	String fatherName;
-	@Column(name="email")
 	String email;
-	@Column(name="studentClass")
 	String studentClass;
-	@Column(name="studentAge")
 	String studentAge;
 	
-	public Student() {
+	public StudentModel() {
 	}
 	
-	//Getter Setter methods
 	public String getStudentAge() {
 		return studentAge;
 	}
