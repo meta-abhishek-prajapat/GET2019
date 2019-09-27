@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -20,6 +21,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		this.dataSource = dataSource;
 	}
 
+	
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource);
@@ -33,13 +35,13 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		 http.authorizeRequests().antMatchers("/welcome").hasAnyRole("USER", "ADMIN")
-         .antMatchers("/getUser").hasAnyRole("USER")
-         .antMatchers("/updateUser").hasAnyRole("USER")
+         .antMatchers("/getUser").hasAnyRole("USER", "ADMIN")
+         .antMatchers("/updateUser").hasAnyRole("USER", "ADMIN")
          .antMatchers("/getAdmin").hasAnyRole("ADMIN")
          .antMatchers("/updateAdmin").hasAnyRole("ADMIN")
          .anyRequest().authenticated().and().formLogin().loginPage("/login")
          .permitAll().defaultSuccessUrl("/welcome").failureUrl("/login?error=true").
-         and().logout().permitAll();
+         and().logout().permitAll().and().exceptionHandling().accessDeniedPage("/unauthorized");
 
      http.csrf().disable();
 	}

@@ -3,29 +3,19 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" scope="request" value="Home" />
 <%@include file="../includes/header.jsp"%>
-<div class="container" style="margin-top: 60px" align="center">
-	<div class="card">
-		<div class="card-header">
-			<h1>User Management System</h1>
-		</div>
-		<div class="card-body">
-			<br>
-			<button type="submit" class="btn btn-primary"
-				onclick="window.location.href = '/getUser';">Get User Details</button>
+
+
+
+			<a href="getUser">Get User Details</a>
 			<br> <br>
-			<button type="submit" class="btn btn-primary"
-				onclick="window.location.href = '/updateUser';">Update User Details</button>
+			<a href = "updateUser">Update User Details</a>
 			<br> <br>
-			<button type="submit" class="btn btn-primary"
-				onclick="window.location.href = '/getAdmin';">Get Admin Details</button>
+			<a href = "getAdmin">Get Admin Details</a>
 			<br> <br>
-			<button type="submit" class="btn btn-primary"
-				onclick="window.location.href = '/updateAdmin';">Update Admin Details</button>
+			<a href = "updateAdmin">Update Admin Details</a>
 			<br> <br>
-			<form id="logoutForm" method="POST" action="/logout">
-				<button type="submit" class="btn btn-success">Logout</button>
+			<form  method="POST" action="/logout">
+				<input type="submit" value="LogOut">
 			</form>
-		</div>
-	</div>
-</div>
+
 <jsp:include flush="true" page="../includes/footer.jsp"></jsp:include>

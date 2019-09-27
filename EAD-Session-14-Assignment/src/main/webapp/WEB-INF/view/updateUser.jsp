@@ -3,11 +3,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" scope="request" value="Update User Details" />
 <%@include file="../includes/header.jsp"%>
-<div class="container" style="margin-top: 60px" align="center">
-	<div class="card">
-		<div class="card-header">
-			<h1>User Details Update Page</h1>
-		</div>
-	</div>
-</div>
+
+			<h2>User Details Update Page</h2>
+			<h3>Authorized</h3>
+		
 <jsp:include flush="true" page="../includes/footer.jsp"></jsp:include>

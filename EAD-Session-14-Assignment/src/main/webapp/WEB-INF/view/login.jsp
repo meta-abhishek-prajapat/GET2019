@@ -15,33 +15,24 @@
     <meta name="author" content="">
 
     <title>Log in</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
 
-<div class="container">
-
-    <form method="POST" action="/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
-
-        <div class="form-group ">
-            <span>${msg}</span>
-            <input name="username" type="text" class="form-control" placeholder="Username"
+<center>
+    <form method="POST" action="/login">
+        <h2>Log in</h2>
+	        <span>${msg}</span>
+            <input name="username" type="text" placeholder="Username"
                    autofocus="true"/>
              <br>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
+            <input name="password" type="password" placeholder="Password"/><br>
             <span>${errorMsg}</span>
             <br>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-        </div>
-
+            <button type="submit">Log In</button>
     </form>
+    </center>
 
-</div>
-<!-- /container -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script></body>
+</body>
 </html>
